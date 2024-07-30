@@ -23,6 +23,21 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult Products()
+    {
+        return View();
+    }
+
+    public IActionResult CreateEditProduct()
+    {
+        return View();
+    }
+
+    public IActionResult CreateEditProductForm(Product product)
+    {
+        return RedirectToAction("Products");
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
