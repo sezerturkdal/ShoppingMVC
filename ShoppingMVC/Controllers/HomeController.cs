@@ -8,9 +8,12 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
 
-    public HomeController(ILogger<HomeController> logger)
+    private readonly ShoppingDbContext _context;
+
+    public HomeController(ILogger<HomeController> logger, ShoppingDbContext context)
     {
         _logger = logger;
+        _context = context;
     }
 
     public IActionResult Index()
@@ -25,16 +28,43 @@ public class HomeController : Controller
 
     public IActionResult Products()
     {
+        var allProducts = _context.Products.ToList();
+        return View(allProducts);
+    }
+
+    public IActionResult CreateEditProduct(int? id)
+    {
+        if (id != null)
+        {
+            var product = _context.Products.FirstOrDefault(x => x.Id == id);
+            return View(product);
+        }
+
         return View();
     }
 
-    public IActionResult CreateEditProduct()
+    public IActionResult DeleteProduct(int id)
     {
-        return View();
+        var product = _context.Products.FirstOrDefault(x => x.Id == id);
+        _context.Products.Remove(product);
+        _context.SaveChanges();
+
+        return RedirectToAction("Products");
     }
 
     public IActionResult CreateEditProductForm(Product product)
     {
+        if (product.Id == 0)
+        {
+            _context.Products.Add(product);
+        }
+        else
+        {
+            _context.Products.Update(product);
+        }
+        
+        _context.SaveChanges();
+
         return RedirectToAction("Products");
     }
 

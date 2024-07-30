@@ -1,4 +1,7 @@
-﻿namespace ShoppingMVC;
+﻿using Microsoft.EntityFrameworkCore;
+using ShoppingMVC.Models;
+
+namespace ShoppingMVC;
 
 public class Program
 {
@@ -8,6 +11,9 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
+        builder.Services.AddDbContext<ShoppingDbContext>(options =>
+                options.UseInMemoryDatabase("ShoppingDb")
+        );
 
         var app = builder.Build();
 
