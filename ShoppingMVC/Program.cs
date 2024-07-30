@@ -12,8 +12,15 @@ public class Program
         // Add services to the container.
         builder.Services.AddControllersWithViews();
         builder.Services.AddDbContext<ShoppingDbContext>(options =>
-                options.UseInMemoryDatabase("ShoppingDb")
+
+                {
+                    var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
+                    options.UseSqlServer(connectionString);
+                }
+                //options.UseInMemoryDatabase("ShoppingDb")
         );
+
+
 
         var app = builder.Build();
 
