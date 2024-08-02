@@ -10,10 +10,13 @@ public class HomeController : Controller
 
     private readonly ShoppingDbContext _context;
 
-    public HomeController(ILogger<HomeController> logger, ShoppingDbContext context)
+    private readonly IUnitOfWork unitOfWork;
+
+    public HomeController(ILogger<HomeController> logger, ShoppingDbContext context, IUnitOfWork work)
     {
         _logger = logger;
         _context = context;
+        unitOfWork = work;
     }
 
     public IActionResult Index()
@@ -28,15 +31,16 @@ public class HomeController : Controller
 
     public IActionResult Products()
     {
-        var allProducts = _context.Products.ToList();
-        return View(allProducts);
+        var allProducts = unitOfWork.productRepository.GetAllAsync().Result;
+        
+        return View(allProducts.Where(x=>x.IsDeleted==false).ToList());
     }
 
     public IActionResult CreateEditProduct(int? id)
     {
         if (id != null)
         {
-            var product = _context.Products.FirstOrDefault(x => x.Id == id);
+            var product = unitOfWork.productRepository.GetAsync(id).Result;
             return View(product);
         }
 
@@ -45,8 +49,9 @@ public class HomeController : Controller
 
     public IActionResult DeleteProduct(int id)
     {
-        var product = _context.Products.FirstOrDefault(x => x.Id == id);
-        _context.Products.Remove(product);
+        var product = unitOfWork.productRepository.GetAsync(id).Result;
+        unitOfWork.productRepository.DeleteEntity(product);
+
         _context.SaveChanges();
 
         return RedirectToAction("Products");
@@ -56,11 +61,11 @@ public class HomeController : Controller
     {
         if (product.Id == 0)
         {
-            _context.Products.Add(product);
+            unitOfWork.productRepository.AddEntity(product);
         }
         else
         {
-            _context.Products.Update(product);
+            unitOfWork.productRepository.UpdateEntity(product);
         }
         
         _context.SaveChanges();

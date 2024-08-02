@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ShoppingMVC.Controllers;
 using ShoppingMVC.Models;
+using ShoppingMVC.Repos;
 
 namespace ShoppingMVC;
 
@@ -19,6 +21,8 @@ public class Program
                 }
                 //options.UseInMemoryDatabase("ShoppingDb")
         );
+
+        builder.Services.AddScoped<IUnitOfWork, UnitOfWorkRepository>();
 
 
 
