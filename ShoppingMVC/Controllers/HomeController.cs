@@ -36,42 +36,6 @@ public class HomeController : Controller
         return View(allProducts.Where(x=>x.IsDeleted==false).ToList());
     }
 
-    public IActionResult CreateEditProduct(int? id)
-    {
-        if (id != null)
-        {
-            var product = unitOfWork.productRepository.GetAsync(id).Result;
-            return View(product);
-        }
-
-        return View();
-    }
-
-    public IActionResult DeleteProduct(int id)
-    {
-        var product = unitOfWork.productRepository.GetAsync(id).Result;
-        unitOfWork.productRepository.DeleteEntity(product);
-
-        _context.SaveChanges();
-
-        return RedirectToAction("Products");
-    }
-
-    public IActionResult CreateEditProductForm(Product product)
-    {
-        if (product.Id == 0)
-        {
-            unitOfWork.productRepository.AddEntity(product);
-        }
-        else
-        {
-            unitOfWork.productRepository.UpdateEntity(product);
-        }
-        
-        _context.SaveChanges();
-
-        return RedirectToAction("Products");
-    }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

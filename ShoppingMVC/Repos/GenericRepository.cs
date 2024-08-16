@@ -41,6 +41,12 @@ namespace ShoppingMVC.Repos
         {
             throw new NotImplementedException();
         }
+
+        public virtual Task<bool> ChangeEntityStatus(int id)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
 

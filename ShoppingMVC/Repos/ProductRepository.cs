@@ -89,6 +89,30 @@ namespace ShoppingMVC.Repos
             }
         }
 
+        public override async Task<bool> ChangeEntityStatus(int id)
+        {
+            try
+            {
+                var exist = GetAsync(id).Result;
+                if (exist != null)
+                {
+                    exist.IsActive = !exist.IsActive;
+                    exist.UpdatedDate = DateTime.Now;
+                    exist.UpdatedBy = 1;
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
     }
 }

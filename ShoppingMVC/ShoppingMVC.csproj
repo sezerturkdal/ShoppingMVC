@@ -20,9 +20,25 @@
   <ItemGroup>
     <None Remove="Interfaces\" />
     <None Remove="Repos\" />
+    <None Remove="Views\Admin\" />
+    <None Remove="Views\Product\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Interfaces\" />
     <Folder Include="Repos\" />
+    <Folder Include="wwwroot\admin\" />
+    <Folder Include="wwwroot\admin\css\" />
+    <Folder Include="wwwroot\admin\fonts\" />
+    <Folder Include="wwwroot\admin\js\" />
+    <Folder Include="wwwroot\admin\images\" />
+    <Folder Include="Views\Admin\" />
+    <Folder Include="Views\Product\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\admin\" />
+    <Content Remove="wwwroot\admin\css\" />
+    <Content Remove="wwwroot\admin\fonts\" />
+    <Content Remove="wwwroot\admin\js\" />
+    <Content Remove="wwwroot\admin\images\" />
   </ItemGroup>
 </Project>
