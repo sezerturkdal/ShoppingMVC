@@ -14,6 +14,7 @@ namespace ShoppingMVC.Models
         [MaxLength(500)]
         public string Description { get; set; }
 		public double Price { get; set; }
+		public string? PhotoURL { get; set; }
 	}
 }
 

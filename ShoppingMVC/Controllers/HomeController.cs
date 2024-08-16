@@ -33,7 +33,7 @@ public class HomeController : Controller
     {
         var allProducts = unitOfWork.productRepository.GetAllAsync().Result;
         
-        return View(allProducts.Where(x=>x.IsDeleted==false).ToList());
+        return View(allProducts.Where(x=>x.IsActive==true && x.IsDeleted==false).ToList());
     }
 
 

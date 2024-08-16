@@ -27,7 +27,7 @@
                                 </div>
                                 <div class="col-sm-12 col-md-6">
                                     <div class="user-list-files d-flex float-right">
-                                        <a class="iq-bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add" href="#"><i class="ri-user-add-line"></i></a>
+                                        <a class="iq-bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add" asp-controller="Product" asp-action="CreateEditProduct"><i class="ri-user-add-line"></i></a>
                                         <a class="iq-bg-primary" href="javascript:void();">
                                             Print
                                         </a>
@@ -70,8 +70,8 @@
                                                 <td>@item.CreatedDate</td>
                                                 <td>
                                                     <div class="d-flex align-items-center list-user-action">
-                                                        <a class="iq-bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit" href="#"><i class="ri-pencil-line"></i></a>
-                                                        <a class="iq-bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete" href="#"><i class="ri-delete-bin-line"></i></a>
+                                                        <a class="iq-bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit" asp-controller="Product" asp-action="CreateEditProduct" asp-route-id="@item.Id"><i class="ri-pencil-line"></i></a>
+                                                        <a class="iq-bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete" asp-controller="Product" asp-action="DeleteProduct" asp-route-id="@item.Id"><i class="ri-delete-bin-line"></i></a>
                                                     </div>
                                                 </td>
                                             </tr>

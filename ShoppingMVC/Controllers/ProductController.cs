@@ -29,7 +29,7 @@ namespace ShoppingMVC.Controllers
         {
             var allProducts = unitOfWork.productRepository.GetAllAsync().Result;
 
-            return View(allProducts.ToList());
+            return View(allProducts.Where(x => x.IsDeleted == false).ToList());
         }
 
         public IActionResult CreateEditProduct(int? id)
