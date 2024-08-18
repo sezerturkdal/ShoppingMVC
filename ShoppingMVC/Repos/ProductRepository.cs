@@ -51,6 +51,7 @@ namespace ShoppingMVC.Repos
                     existData.Description = entity.Description;
                     existData.UpdatedDate = DateTime.Now;
                     existData.UpdatedBy = 1;
+                    existData.PhotoURL = entity.PhotoURL == null ? existData.PhotoURL : entity.PhotoURL;
 
                     return true;
                 }

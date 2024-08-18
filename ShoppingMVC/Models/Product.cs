@@ -10,9 +10,9 @@ namespace ShoppingMVC.Models
 		public int Id { get; set; }
 		[Required]
 		[MaxLength(100)]
-		public string Name { get; set; }
+		public string? Name { get; set; }
         [MaxLength(500)]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 		public double Price { get; set; }
 		public string? PhotoURL { get; set; }
 	}

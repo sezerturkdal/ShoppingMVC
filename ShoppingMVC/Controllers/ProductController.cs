@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using ShoppingMVC.Models;
 
@@ -15,19 +16,22 @@ namespace ShoppingMVC.Controllers
 
         private readonly ShoppingDbContext _context;
 
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ProductController(ILogger<ProductController> logger, ShoppingDbContext context, IUnitOfWork work)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+
+        public ProductController(ILogger<ProductController> logger, ShoppingDbContext context, IUnitOfWork work, IWebHostEnvironment webHostEnvironment)
         {
             _logger = logger;
             _context = context;
-            unitOfWork = work;
+            _unitOfWork = work;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: /<controller>/
         public IActionResult Index()
         {
-            var allProducts = unitOfWork.productRepository.GetAllAsync().Result;
+            var allProducts = _unitOfWork.productRepository.GetAllAsync().Result;
 
             return View(allProducts.Where(x => x.IsDeleted == false).ToList());
         }
@@ -36,7 +40,7 @@ namespace ShoppingMVC.Controllers
         {
             if (id != null)
             {
-                var product = unitOfWork.productRepository.GetAsync(id).Result;
+                var product = _unitOfWork.productRepository.GetAsync(id).Result;
                 return View(product);
             }
 
@@ -45,23 +49,41 @@ namespace ShoppingMVC.Controllers
 
         public IActionResult DeleteProduct(int id)
         {
-            var product = unitOfWork.productRepository.GetAsync(id).Result;
-            unitOfWork.productRepository.DeleteEntity(product);
+            var product = _unitOfWork.productRepository.GetAsync(id).Result;
+            _unitOfWork.productRepository.DeleteEntity(product);
 
             _context.SaveChanges();
 
             return RedirectToAction("Index");
         }
 
-        public IActionResult CreateEditProductForm(Product product)
+        public IActionResult CreateEditProductForm(Product product, IFormFile image)
         {
+            if (image != null && image.Length > 0)
+            {
+                var uploadFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads/");
+                if (!Directory.Exists(uploadFolder))
+                {
+                    Directory.CreateDirectory(uploadFolder);
+                }
+                var fileExtension = Path.GetExtension(image.FileName);
+                var fileName =  Guid.NewGuid().ToString() + fileExtension;
+                var filePath = Path.Combine(uploadFolder, fileName);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    image.CopyTo(fileStream);
+                }
+                product.PhotoURL = "/uploads/" + fileName;
+            }
+            
             if (product.Id == 0)
             {
-                unitOfWork.productRepository.AddEntity(product);
+                _unitOfWork.productRepository.AddEntity(product);
             }
             else
             {
-                unitOfWork.productRepository.UpdateEntity(product);
+                _unitOfWork.productRepository.UpdateEntity(product);
             }
 
             _context.SaveChanges();
@@ -71,7 +93,7 @@ namespace ShoppingMVC.Controllers
 
         public IActionResult ChangeStatus(int id)
         {
-            unitOfWork.productRepository.ChangeEntityStatus(id);
+            _unitOfWork.productRepository.ChangeEntityStatus(id);
             
             _context.SaveChanges();
 

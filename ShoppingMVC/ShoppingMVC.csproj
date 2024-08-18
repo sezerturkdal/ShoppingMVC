@@ -33,6 +33,7 @@
     <Folder Include="wwwroot\admin\images\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Product\" />
+    <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\admin\" />
@@ -40,5 +41,6 @@
     <Content Remove="wwwroot\admin\fonts\" />
     <Content Remove="wwwroot\admin\js\" />
     <Content Remove="wwwroot\admin\images\" />
+    <Content Remove="wwwroot\uploads\" />
   </ItemGroup>
 </Project>

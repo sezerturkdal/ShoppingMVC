@@ -53,7 +53,7 @@
                                         foreach (var item in Model)
                                         {
                                             <tr>
-                                                <td class="text-center"><img class="rounded img-fluid avatar-40" src="~/admin/images/user/01.jpg" alt="profile"></td>
+                                                <td class="text-center"><img class="rounded img-fluid avatar-40" src="@(string.IsNullOrEmpty(item?.PhotoURL) ? Url.Content("~/admin/images/user/01.jpg") : item.PhotoURL)"  alt="profile"></td>
                                                 <td>@item.Name</td>
                                                 <td>£ @item.Price</td>
                                                 <td>
