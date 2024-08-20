@@ -5,6 +5,8 @@ VisualStudioVersion = 25.0.1706.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingMVC", "ShoppingMVC\ShoppingMVC.csproj", "{92DC9CAD-5B0B-417C-A4DE-AA7B59AA18D2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthenticationService", "AuthenticationService\AuthenticationService.csproj", "{33782C8A-E397-47EA-9E6A-8D9ACAAC900A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{92DC9CAD-5B0B-417C-A4DE-AA7B59AA18D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92DC9CAD-5B0B-417C-A4DE-AA7B59AA18D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92DC9CAD-5B0B-417C-A4DE-AA7B59AA18D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33782C8A-E397-47EA-9E6A-8D9ACAAC900A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33782C8A-E397-47EA-9E6A-8D9ACAAC900A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33782C8A-E397-47EA-9E6A-8D9ACAAC900A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33782C8A-E397-47EA-9E6A-8D9ACAAC900A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
